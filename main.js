@@ -1,7 +1,7 @@
 const user = [
     ['hello', 'hey', 'hi', 'yo', 'good morning', 'good afternoon'],
     ['what is your name', 'what are you called', 'do you have a name', 'your name', 'what do you call yourself'],
-    ['are you a bot', 'are you a human', 'are you human or bot', 'are you real'],
+    ['are you a bot', 'are you a human', 'are you human or bot', 'are you real', 'what are you'],
     ['how are you', 'are you ok', 'how are you feeling', 'how is life', 'how are things'],
     ['happy', 'good', 'great', 'fantastic'],
     ['sad', 'bored', 'tired', 'bad'],
@@ -13,9 +13,10 @@ const user = [
     ['bye', 'goodbye', 'laters', 'see you later', 'im off']
 ];
 
+
 const bot = [
     ['Hi!', 'Hello!', 'Hey!', 'What\'s up?!'],
-    ['My name is Botty McBotFace!', 'Botty McBotFace at your service!', 'I\'m Botty McBotFace, but you can call me Fred'],
+    ['My name is Botty McBotface!', 'Botty McBotface at your service!', 'I\'m Botty McBotface, but you can call me Fred'],
     ['I am a bot!', 'I am neither human nor bot', 'What is a bot?', 'What is a human?'],
     ['I\'m great, how are you?', 'Fantastic! How are you?', 'Tired of being a bot... What about you?'],
     ['Great!', 'Glad to hear it!', 'Me too!'],
@@ -24,27 +25,16 @@ const bot = [
     ['I love me too!', 'Love ya too!', 'Thanks', 'Cheers mate'],
     ['Do you know any jokes?', 'Tell me a story', 'Indeed'],
     ['No', 'Knock knock. Who\'s there? Surely you have someone else to talk to?'],
-    ['what', 'why', 'where', 'when', 'how'],
+    ['What?', 'Why?', 'Where?', 'When?', 'How?'],
     ['See ya!', 'Bye!', 'Thanks for chatting!']
 ];
 
 
-//generate a random response if there's no match with the user's input
+//outputs other response if no match to user input
 const other = ['I don\'t quite understand', 'I can\'t answer that', 'Same bro', 'Ok...', 'Me too', 'What?'];
 
-document.addEventListener('DOMContentLoaded', () => {
-    const mainInput = document.getElementById('mainInput')
-    mainInput.addEventListener('keydown', (event) => {
-        if (event.code === 'Enter') {
-            let input = mainInput.value;
-            mainInput.value = '';
-            output(input);
-        }
-    })
-});
 
-
-//compares user's query with bot's response
+//compares user query with bot response
 const compare = (user, bot, string) => {
     let query;
 
@@ -56,31 +46,64 @@ const compare = (user, bot, string) => {
             }
         }
     }
-    
     return query;
 };
 
 
-//adds chat to the DOM
-const addChat = (query, response) => {
-    const container = document.getElementById('container');
+//listens to user's voice input - to be added!
+let recognition = new webkitSpeechRecognition();
+recognition.continuous = false;
+
+
+//allows bot to talk
+const synth = window.speechSynthesis;
+let voices = synth.getVoices();
+
+const speak = (string) => {
+    let voice = new SpeechSynthesisUtterance(string);
+    voice.text = string;
+    voice.lang = 'en-GB';
+    voice.volume = 1; //range of 0-1
+    voice.rate = 1;
+    voice.pitch = 1; //range of 0-2
+    synth.speak(voice);
+}
+
+
+//adds user and bot messages to the DOM
+const createMessage = (query, response) => {
+    const messages = document.getElementById('messages');
 
     let userInput = document.createElement('div');
     userInput.id = 'user';
-    userInput.innerHTML = `You: <span id='userInput'>${query}</span>`;
-    container.appendChild(userInput);
+    userInput.classList.add('messages__user');
+    messages.appendChild(userInput);
 
-    let botInput = document.createElement('div');
-    botInput.id = 'bot';
-    botInput.innerHTML = `Botty McBotFace: <span id='botInput'>${response}</span>`;
-    container.appendChild(botInput);
+    let userMessage = document.createElement('p');
+    userMessage.classList.add('messages__message');
+    userMessage.innerText = `${query}`;
+    userInput.appendChild(userMessage);
+
+
+    setTimeout(() => {
+        let botInput = document.createElement('div');
+        botInput.id = 'bot';
+        botInput.classList.add('messages__bot');
+        messages.appendChild(botInput);
+
+        let botMessage = document.createElement('p');
+        botMessage.classList.add('messages__message');
+        botMessage.innerText = `${response}`;
+        botInput.appendChild(botMessage);
+
+        speak(response);
+    }, 800)
 };
 
 
-const output = (input) => {
-    //converts user's input to only include characters, numbers and whitespace
+//outputs message
+const addMessage = (input) => {
     let message = input.toLowerCase().replace(/[^a-z\d\s]+/gi, '');
-
     let result;
 
     //checks for exact match in the user array, otherwise will default to random other
@@ -90,6 +113,18 @@ const output = (input) => {
         result = other[Math.floor(Math.random() * other.length)];
     }
 
-    //add response to page
-    addChat(input, result);
+    createMessage(input, result);
 };
+
+
+//listens for user input
+document.addEventListener('DOMContentLoaded', () => {
+    const mainInput = document.getElementById('mainInput')
+    mainInput.addEventListener('keydown', (event) => {
+        if (event.code === 'Enter') {
+            let input = mainInput.value;
+            mainInput.value = '';
+            addMessage(input);
+        }
+    })
+});

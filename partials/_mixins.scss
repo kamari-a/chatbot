@@ -1,0 +1,27 @@
+/* Breakpoints */
+@mixin small-tablet{
+	@media screen and (min-width: $small-tablet-breakpoint) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media screen and (min-width: $tablet-breakpoint) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media screen and (min-width: $desktop-breakpoint) {
+    	@content;
+    }
+}
+
+@mixin message {
+    padding: 1rem;
+    border-radius: 8px;
+    width: 55%;
+    margin: 0.5rem 0;
+}
+
+

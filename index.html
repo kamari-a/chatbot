@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' type='text/css' href='styles.css'></link>
     <title>Chat Bot</title>
 </head>
 <body>
     <main>
-        <section class='container' id='container'>
-            <input type='text' id='mainInput' placeholder='What can I help you with?' />
+        <section class='messages' id='messages'>
+        <!-- messages will be populated here -->
+        </section>
+
+        <section class='input'>
+            <input type='text' id='mainInput' placeholder='Ask me anything!' class='input__user'/>
         </section>
     </main>
     <script src='main.js'></script>
