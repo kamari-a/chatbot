@@ -1,6 +1,6 @@
 const user = [
     ['hello', 'hey', 'hi', 'yo', 'good morning', 'good afternoon'],
-    ['what is your name', 'what are you called', 'do you have a name', 'your name', 'what do you call yourself'],
+    ['what is your name', 'what are you called', 'do you have a name', 'your name', 'what do you call yourself', 'whats your name', 'name'],
     ['are you a bot', 'are you a human', 'are you human or bot', 'are you real', 'what are you'],
     ['how are you', 'are you ok', 'how are you feeling', 'how is life', 'how are things'],
     ['happy', 'good', 'great', 'fantastic'],
@@ -9,13 +9,13 @@ const user = [
     ['love you', 'i love you', 'love ya'],
     ['cool', 'yes', 'ok', 'nice','sweet', 'sick'],
     ['tell me a joke', 'do you know any jokes', 'can you tell jokes'],
-    ['what', 'why', 'where', 'when', 'how'],
-    ['bye', 'goodbye', 'laters', 'see you later', 'im off']
+    ['bye', 'goodbye', 'laters', 'see you later', 'im off'],
+    ['how old are you', 'what is your age', 'how old', 'your age'],
+    ['bro', 'dude'],
 ];
 
-
 const bot = [
-    ['Hi!', 'Hello!', 'Hey!', 'What\'s up?!'],
+    ['Hi!', 'Hello!', 'Hey!', 'What\'s up?!', 'Yo'],
     ['My name is Botty McBotface!', 'Botty McBotface at your service!', 'I\'m Botty McBotface, but you can call me Fred'],
     ['I am a bot!', 'I am neither human nor bot', 'What is a bot?', 'What is a human?'],
     ['I\'m great, how are you?', 'Fantastic! How are you?', 'Tired of being a bot... What about you?'],
@@ -25,13 +25,13 @@ const bot = [
     ['I love me too!', 'Love ya too!', 'Thanks', 'Cheers mate'],
     ['Do you know any jokes?', 'Tell me a story', 'Indeed'],
     ['No', 'Knock knock. Who\'s there? Surely you have someone else to talk to?'],
-    ['What?', 'Why?', 'Where?', 'When?', 'How?'],
-    ['See ya!', 'Bye!', 'Thanks for chatting!']
+    ['See ya!', 'Bye!', 'Thanks for chatting!'],
+    ['I\'m a millenial baby!', '25!', 'I am 25 years old. What about you?'],
+    ['Bro', 'Dude']
 ];
 
-
 //outputs other response if no match to user input
-const other = ['I don\'t quite understand', 'I can\'t answer that', 'Same bro', 'Ok...', 'Me too', 'What?'];
+const other = ['I don\'t understand', 'Same bro', 'Ok...', 'Me too', 'What?', 'Cool', 'No comment'];
 
 
 //compares user query with bot response
@@ -84,7 +84,6 @@ const createMessage = (query, response) => {
     userMessage.innerText = `${query}`;
     userInput.appendChild(userMessage);
 
-
     setTimeout(() => {
         let botInput = document.createElement('div');
         botInput.id = 'bot';
@@ -96,14 +95,15 @@ const createMessage = (query, response) => {
         botMessage.innerText = `${response}`;
         botInput.appendChild(botMessage);
 
-        speak(response);
-    }, 800)
+        speak(response);      
+    }, 1000)   
 };
 
 
 //outputs message
 const addMessage = (input) => {
     let message = input.toLowerCase().replace(/[^a-z\d\s]+/gi, '');
+
     let result;
 
     //checks for exact match in the user array, otherwise will default to random other

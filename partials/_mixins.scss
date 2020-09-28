@@ -1,3 +1,20 @@
+@mixin message {
+    padding: 1rem;
+    border-radius: 8px;
+    width: 75%;
+	margin: 0.5rem 0;
+	box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+
+	@include tablet {
+		width: 70%;
+		margin: 0.75rem 0;
+	}
+
+	@include desktop {
+		width: 55%;
+	}
+}
+
 /* Breakpoints */
 @mixin small-tablet{
 	@media screen and (min-width: $small-tablet-breakpoint) {
@@ -15,13 +32,6 @@
 	@media screen and (min-width: $desktop-breakpoint) {
     	@content;
     }
-}
-
-@mixin message {
-    padding: 1rem;
-    border-radius: 8px;
-    width: 55%;
-    margin: 0.5rem 0;
 }
 
 
