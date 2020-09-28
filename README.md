@@ -6,7 +6,7 @@ This chatbot (affectionately called Botty McBotface after [this British vote](ht
 Currently users can communicate with the bot using text input. Voice input will be added soon.
 
 # Instructions
-Enter your text into the input field to start your conversation.
+Enter your text into the input field and press enter/return on your keyboard to start your conversation.
 
 # Browser Support
 Please note that support for Web Speech API speech recognition is currently limited to Chrome for Desktop and Android.
