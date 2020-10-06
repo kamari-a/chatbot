@@ -15,7 +15,7 @@ const user = [
     ['are you hungry'],
     ['baby yoda', 'i love baby yoda'],
     ['i hate baby yoda'],
-    ['lol', 'rofl', 'lmao']
+    ['lol', 'rofl', 'lmao', 'lmfao']
 ];
 
 const bot = [
